@@ -1,0 +1,453 @@
+body {
+    margin: 0;
+    font-family: -apple-system,BlinkMacSystemFont,segoe ui,roboto,oxygen,ubuntu,cantarell,fira sans,droid sans,helvetica neue,sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #3A3C41;
+}
+
+code {
+    font-family: source-code-pro,Menlo,Monaco,Consolas,courier new,monospace
+}
+
+.blurple-button {
+    background-color: #5865F2;
+}
+
+.vertical-center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%)
+}
+
+.top {
+    background: #5865F2;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50%;
+}
+
+.main-page {
+    overflow-x: hidden;
+    text-rendering: geometricPrecision
+}
+
+.feature-header {
+    vertical-align: middle;
+    display: flex;
+    flex-direction: column;
+    justify-content: center
+}
+
+.endbutton {
+    background-color: #5865F2;
+    color: white;
+}
+
+.smtext-left {
+    text-align: left;
+}
+.smtext-right {
+    text-align: right;
+}
+
+.navigation {
+    width: 90%;
+    max-width: 60m;
+    height: 6rem;
+    margin: auto
+}
+
+.nav-links, .navigation {
+    display: flex;
+    justify-content: space-between
+}
+
+.nav-links {
+    line-height: 6rem;
+    width: 50%;
+    min-width: 12rem;
+    max-width: 20rem
+}
+
+.feature, .ofeature {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    word-wrap: break-word;
+    padding: 3rem 2rem
+}
+
+.ofeature {
+    background: #dedede
+}
+
+.efeature {
+    width: 100%;
+    display: flex;
+    word-wrap: break-word;
+    justify-content: center;
+    padding: 3rem 2rem
+}
+
+.end-button {
+    background: #5865F2
+}
+
+.link {
+    display: inline-block;
+    position: relative;
+    background-color: #cbcbcb;
+    border-radius: 10px;
+    text-align: left;
+    overflow: hidden;
+    border: 2px solid transparent;
+}
+.gr {
+    color: transparent;
+    background-image: linear-gradient(135deg,#42E695,#3BB2B8);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+.gr2 {
+    color: transparent;
+    background-image: linear-gradient(135deg,#ff0000,#ca990c);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+.colored {
+    background-color: #ffd869;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.pd-tailwnd {
+    padding: 2rem;
+}
+.white {
+    color: white;
+}
+
+.a {
+    text-decoration: none;
+    color: white;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a {
+    text-decoration: none;
+}
+
+.botpage {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.btn.btn-blue {
+    background-color: white;
+    border-color: white;
+}
+.btn {
+    border: 1px solid transparent;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+.btn:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.logo\:title {
+    width: 30px;
+}
+
+.log\:small {
+    width: 15px;
+}
+
+.blurple {
+    color: #5865F2;
+}
+
+/* Forms CSS*/
+
+.inputBar {
+    height: 45px;
+    padding: 8px 8px 8px 5px;
+    outline: none;
+    border: 1px solid #292929;
+    background-color: #fff;
+    margin: auto;
+    border-radius: 8px;
+    width: 50%;
+}
+
+select {
+    height: 45px;
+    padding: 8px 8px 8px 5px;
+    outline: none;
+    border: 1px solid #292929;
+    background-color: #fff;
+    margin: auto;
+    border-radius: 8px;
+    text-align: left;
+    width: 50%;
+}
+
+/* Better Popup Window */
+  
+.confirmbtn {
+    background-color: #3ba55c;
+}
+
+.cancelbtn {
+    background-color: #ed4245;
+}
+
+  .box {
+    width: 40%;
+    margin: 0 auto;
+    background: rgba(255,255,255,0.2);
+    padding: 35px;
+    border: 2px solid #fff;
+    border-radius: 20px/50px;
+    background-clip: padding-box;
+    text-align: center;
+  }
+  
+  .button {
+    font-size: 1em;
+    padding: 10px;
+    color: #fff;
+    border: 2px solid #06D85F;
+    border-radius: 20px/50px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease-out;
+  }
+  .button:hover {
+    background: #06D85F;
+  }
+  
+  .overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    visibility: hidden;
+    opacity: 0;
+  }
+  .overlay:target {
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  .popup {
+    margin: 70px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    width: 30%;
+    position: relative;
+    transition: all 5s ease-in-out;
+  }
+  
+  .popup h2 {
+    margin-top: 0;
+    color: #333;
+    font-family: Tahoma, Arial, sans-serif;
+  }
+  .popup .close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    transition: all 200ms;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+  }
+  .popup .close:hover {
+    color: #06D85F;
+  }
+  .popup .content {
+    max-height: 30%;
+    overflow: auto;
+  }
+  
+  @media screen and (max-width: 700px){
+    .box{
+      width: 70%;
+    }
+    .popup{
+      width: 70%;
+    }
+  }
+
+/* Popup Window */
+
+/* The popup form - hidden by default */
+.form-popup {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    right: 15px;
+    z-index: 10;
+    align-self: center;
+    align-content: center;
+    align-items: center;
+    background: white;
+    border-radius: 0.5rem;
+
+    position: relative;
+    margin: 0 auto;
+    top: 25%;
+}
+  
+  /* Add styles to the form container */
+  .form-container {
+    align-self: center;
+    align-content: center;
+    align-items: center;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.07), 
+    0 2px 4px rgba(0,0,0,0.07), 
+    0 4px 8px rgba(0,0,0,0.07), 
+    0 8px 16px rgba(0,0,0,0.07),
+    0 16px 32px rgba(0,0,0,0.07), 
+    0 32px 64px rgba(0,0,0,0.07);
+    max-width: 300px;
+    padding: 10px;
+    background-color: white;
+  }
+  
+  /* Full-width input fields */
+  .form-container input[type=text], .form-container input[type=text] {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    border: none;
+    background: #f1f1f1;
+  }
+  
+  /* When the inputs get focus, do something */
+  .form-container input[type=text]:focus, .form-container input[type=text]:focus {
+    background-color: #ddd;
+    outline: none;
+  }
+  
+  /* Set a style for the submit/login button */
+  .form-container .btn {
+    background-color: #04AA6D;
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom:10px;
+    opacity: 0.8;
+  }
+  
+  /* Add a red background color to the cancel button */
+  .form-container .cancel {
+    background-color: red;
+  }
+  
+  /* Add some hover effects to buttons */
+  .form-container .btn:hover, .open-button:hover {
+    opacity: 1;
+  }
+
+/* Tailwind but not tailwind */
+
+/* .mt-10 {
+    margin-top: 2.5rem;
+}
+.pb-12 {
+    padding-bottom: 3rem;
+}
+.text-center {
+    text-align: center;
+}
+.font-bold {
+    font-weight: 700;
+}
+.text-6xl {
+    font-size: 3.75rem;
+    line-height: 1;
+}
+.align-middle {
+    vertical-align: middle;
+}
+
+.duration-200 {
+    transition-duration: 200ms;
+}
+.transition {
+    transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
+    transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+    transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+}
+.shadow {
+    --tw-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.text-black {
+    --tw-text-opacity: 1;
+    color: rgba(0, 0, 0, var(--tw-text-opacity));
+}
+.font-bold {
+    font-weight: 700;
+}
+.text-xl {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+}
+.font-sans {
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+.py-4 {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+.px-2 {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+.bg-white {
+    --tw-bg-opacity: 1;
+    background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
+}
+.rounded-lg {
+    border-radius: 0.5rem;
+}
+.w-60 {
+    width: 15rem;
+}
+.mb-3 {
+    margin-bottom: 0.75rem;
+}
+.block {
+    display: block;
+}
+.mt-16 {
+    margin-top: 4rem;
+}
+.mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+} */

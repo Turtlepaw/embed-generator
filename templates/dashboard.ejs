@@ -1,0 +1,56 @@
+<%- include("./partials/head")%>
+
+<div class="text-center text-black main-page">
+    <div class="pb-12 top">
+        <%- include("./partials/nav")%>
+        <div id="main" name="main" class="mt-10 text-white">
+            <h1 class="text-6xl font-bold align-middle white"><span class="colored">Imagine</span> a cooking game <span class="colored">on an API!</span></h1>
+            <h1 class="text-6xl opacity-20 transform -translate-y-5 font-bold mb-2 align-middle">
+                <!-- <span class="opacity-0"></span> -->
+            </h1>
+            <p class="font-normal text-lg white"></p>
+            <br><br>
+            <a href="/dashboard"
+                class="block bg-white text-black font-bold transition duration-200 shadow hover:shadow-2xl ease-in-and-out rounded-lg mx-auto mt-16 px-2 py-4 text-xl font-sans w-60">
+                Build Your App
+            </a>
+            <br><br><br>
+        </div>
+    </div>
+        <br>
+        <br>
+        <div class="IconList">
+            <div>
+                <center><img class="IconImage" src="/assets/features/free.svg"></center>
+                <div class="IconTitle">Free</div>
+                <div class="IconDescription">The API is free! No premium features.</div>
+            </div>
+            <br>
+            <div>
+                <center><img class="IconImage" src="/assets/features/dashboard.svg"></center>
+                <div class="IconTitle">Dashboard</div>
+                <div class="IconDescription">Sell your food, cook food, and more with the cookingDB dashboard!</div>
+            </div>
+            <br>
+            <div>
+                <center><img class="IconImage" src="/assets/features/variety.svg"></center>
+                <div class="IconTitle">Variety</div>
+                <div class="IconDescription">There's a bunch of food you can pick from and you can add some yourself!</div>
+            </div>
+            <br>
+            <div>
+                <center><img class="IconImage" src="/assets/features/shop.svg"></center>
+                <div class="IconTitle">Customization</div>
+                <div class="IconDescription">You can buy a bunch of machines to cook with in the store!</div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <a href="/dashboard"
+        class="block text-white blurple-button font-bold transition duration-200 shadow hover:shadow-2xl ease-in-and-out rounded-lg mx-auto mt-16 px-2 py-4 text-xl font-sans w-60">
+        Build Your App
+    </a>
+    <div>
+        <%- include("./partials/footer")%>
+    </div>
+</div>

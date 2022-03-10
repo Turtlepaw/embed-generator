@@ -1,0 +1,48 @@
+.row {
+    width: 100%;
+    max-width: 1260px;
+    /* max-width: var(--page-max-width); */
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    /* grid-template-columns: repeat(8,1fr); */
+    gap: 0 20px;
+    padding: 0 24px;
+    padding: 0, 40px;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    padding-left: 50px;
+    padding-right: 50px;
+    flex: auto;
+    flex-wrap: wrap;
+    /* Center Div (Source: https://www.educba.com/css-center-div/)*/
+    margin-left: auto;
+    margin-right: auto;
+    vertical-align: middle;
+}
+
+.subrow {
+    grid-column: span 2;
+    margin-bottom: 40px;
+    text-align: center;
+    align-items: center;
+}
+
+.footerheader {
+    padding-top: 8px;
+    color: #5865f2;
+    font-size: 25px;
+}
+
+.footerLink {
+    padding-top: 8px;
+    color: white;
+}
+
+.footerLink:hover {
+    padding-top: 8px;
+    color: white;
+    cursor: pointer;
+}

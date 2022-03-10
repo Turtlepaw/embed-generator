@@ -1,0 +1,12 @@
+<div name="navigation" class="navigation">
+    <a href="/"><img src="/assets/svg/logo.svg" class="h-full rounded-full IconLogo"></a>
+    <div class="nav-links text-white font-semibold">
+        <a href="/invite" target="_blank" class="a cursor-pointer">Invite Bot</a><a href="/dashboard"
+            class="a cursor-pointer">Dashboard</a><a href="/support" target="_blank"
+            class="a cursor-pointer">Support</a>
+        <% if(user){ %> <a href="/logout" class="a cursor-pointer">Logout</a>
+            <%}%>
+                <% if(!user){ %> <a href="/login" class="a cursor-pointer">Login</a>
+                    <%}%>
+    </div>
+</div>

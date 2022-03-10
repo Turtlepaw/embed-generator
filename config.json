@@ -1,0 +1,6 @@
+{
+    "clientId": "950957817945260043",
+    "secret": "7bRO6N-tKCV5-_66O3D5ZlZXellqSAZf",
+    "mongoDB": "mongodb+srv://new_bot_tp:ldulWJ5en0L7znZ8@alpha.rp575.mongodb.net/cookingDB",
+    "webhook": "https://discord.com/api/webhooks/950961386287149086/_ggj2VlCeWIAWErIzojhncMHf4_TM4xd6oB8AXFTV1xyEydmK7wPhqb8IY-B0wdC12E-"
+}

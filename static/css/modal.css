@@ -1,0 +1,27 @@
+.modalSubmit {
+    background-color: #68A361;
+    border-radius: 20;
+}
+
+.modalButton {
+    background-color: #5865f2;
+}
+
+.modal {
+    background-color: #333439;
+}
+
+.modalInput {
+    background-color: #3A3C41;
+    border-radius: 5px;
+    color: white;
+    font-weight: bolder;
+    background-size: 50px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-color: #fff;
+    outline: white;
+    outline-style: auto;
+}

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { v4 } = require("uuid");
+const { v4, v5 } = require("uuid");
 const { mongoDB } = require("./config.json");
 const app = require("./models/app");
 const user = require("./models/user");
@@ -42,6 +42,14 @@ module.exports.User = class CookingUser {
         this.userId = userId;
     }
 
+    async autoEdit(){
+        const d = await this.fetch();
+
+        if(d?.apps != null && d.apps.size >= 1) this.data.apps = d.apps;
+
+        return d;
+    }
+
     async fetch(){
         return (await user.findOne({
             userId: this.userId
@@ -82,9 +90,10 @@ module.exports.User = class CookingUser {
 }
 
 module.exports.App = class CookingApp {
+
     constructor(ownerId, Id){
         this.data = {
-            name: "Unknown app",
+            AppName: null,
             token: null,
             requests: 0,
             ownerId: ownerId,
@@ -92,7 +101,7 @@ module.exports.App = class CookingApp {
         }
 
         this.edited = {
-            name: false,
+            AppName: false,
             token: false,
             requests: false
         }
@@ -111,7 +120,7 @@ module.exports.App = class CookingApp {
     async autoEdit(){
         const d = await this.fetch();
 
-        this.data.name = d.name;
+        this.data.AppName = d.name;
         this.data.token = d.token;
         this.data.requests = d.requests;
 
@@ -120,7 +129,7 @@ module.exports.App = class CookingApp {
 
     setName(name){
         this.edited.name = true
-        this.data.name = name
+        this.data.AppName = name
         return this;
     }
 
@@ -148,9 +157,126 @@ module.exports.App = class CookingApp {
         }
 
         if(edited.requests) d.requests = (d.requests == null ? data.requests : (d.requests + data.requests));
-        if(edited.name) d.name = data.name;
+        if(edited.AppName) d.name = data.AppName;
         if(edited.token) d.token = this.generateToken();
 
         return (await d.save());
+    }
+}
+
+//Util Functions
+function isString(val){
+    return typeof val == "string";
+}
+
+function isObject(val){
+    return typeof val == "object";
+}
+
+const This = this;
+
+module.exports.FetchManager = class FetchManager {
+    resolveUser(UserValue){
+        if(isObject(UserValue)){
+            return new This.User(UserValue.userId);
+        } else if(isString(UserValue)){
+            return new This.User(UserValue);
+        } else {
+            throw new Error(
+                `[INVALID_VALUE] Unkown user`
+            );
+        }
+    }
+
+    resolveApp(AppValue, ownerId=null){
+        if(isObject(AppValue)) ownerId = AppValue.ownerId;
+
+        if(isObject(AppValue)){
+            return new This.App(ownerId, AppValue.Id);
+        } else if(isString(AppValue)){
+            return new This.App(ownerId, AppValue);
+        } else {
+            throw new Error(
+                `[INVALID_VALUE] Unkown app`
+            );
+        }
+    }
+
+    async asyncResolveApp(AppId){
+        const ownerId = (await app.findOne({
+            Id: AppId
+        })).ownerId;
+
+        return new This.App(ownerId, AppId);
+    }
+
+    async fetchAllAppsWith(options){
+        const fetch = await app.find(options);
+        return fetch.map(e => this.resolveApp(e));
+    }
+    
+    async fetchAllApps(){
+        const fetch = await app.find();
+        return fetch.map(e => this.resolveApp(e));
+    }
+
+    async fetchAllUsers(){
+        const fetch = await user.find();
+        return fetch.map(e => this.resolveUser(e));
+    }
+
+    async fetchAllUsersWith(options){
+        const fetch = await user.find(options);
+        return fetch.map(e => this.resolveUser(e));
+    }
+
+    async fetchUser(userId){
+        return this.resolveUser(userId);
+    }
+
+    async fetchApp(Id){
+        return this.asyncResolveApp(Id);
+    }
+}
+
+const LocalFetchManager = this.FetchManager;
+module.exports.CreateManager = class CreateManager {
+    async createApp(ownerId, Name){
+        const Fetcher = new LocalFetchManager();
+        const ownerResolved = Fetcher.resolveUser(ownerId);
+
+        const token = v4();
+        const Id = v4();
+
+        const newapp = await new app({
+            name: Name,
+            token,
+            requests: 0,
+            ownerId: ownerId,
+            Id
+        }).save();
+
+        const ResolvedApp = await (await ownerResolved.addApp(Id, ownerId)).save();
+
+
+        return {
+            data: newapp,
+            token,
+            Id,
+            ResolvedApp
+        }
+    }
+
+    async createUser(Id){
+        const newUser = await new user({
+            userId: Id,
+            apps: new Map()
+        }).save();
+
+        return {
+            data: newapp,
+            token,
+            Id
+        }
     }
 }

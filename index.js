@@ -14,17 +14,22 @@ const session = require('express-session');
 const url = require("url");
 const partials = require('express-partials');
 
+//Local
+const { clientId: clientID, mongoDB, secret, webhook: webhookURL } = require("./config.json");
+const { initMongoDB, App: CookingApp, User: CookingUser, FetchManager: CookingFetchManaging, CreateManager: CookingCreatorManager } = require("./mongoDB");
+
 //Varibles
 const api = express();
 const app = express();
+const AddManager = new CookingCreatorManager();
+const FetchManager = new CookingFetchManaging();
 const port = 5089;
-const domain = "https://localhost:" + port;
-const { clientId: clientID, mongoDB, secret, webhook: webhookURL } = require("./config.json");
-const { initMongoDB } = require("./mongoDB");
+const domain = "http://localhost:" + port;
+const http = "http://";
 const config = {
     "verification": "",
     "description": "🥘 Imagine an cooking game on an API!", //description
-    "https": "https://", // leave as is
+    "https": http, // leave as is
     "port": "5089",
 }
 const webhook = new WebhookClient({
@@ -82,7 +87,7 @@ const renderTemplate = async (res, req, template, data = {}) => {
     var pathname = url.parse(req.url).pathname;
 
     const baseData = {
-        https: "https://",
+        https: http,
         domain: domain,
         hostname: hostname,
         pathname: pathname,
@@ -95,8 +100,7 @@ const renderTemplate = async (res, req, template, data = {}) => {
         image: `${domain}/logo.png`,
         redirect: function (place) {
             res.redirect(place);
-        },
-        realUser: req.isAuthenticated() ? await client.users.fetch(req.user.id) : null,
+        }
     };
     res.render(path.resolve(`${templateDir}${path.sep}${template}`), Object.assign(baseData, data));
 };
@@ -129,53 +133,63 @@ app.get("/login", (req, res, next) => {
 },
     passport.authenticate("discord"));
 
+function genTag(reqUser){
+    return reqUser.username + "#" + reqUser.discriminator
+}
+
 // Callback endpoint.
 app.get("/callback", passport.authenticate("discord", {
     failWithError: true,
     failureFlash: "There was an error logging you in!",
     failureRedirect: "/",
 }), async (req, res) => {
+    async function tryAndCreateUser(){
+        const usr = await FetchManager.fetchUser(req.user.id);
+
+        if(!usr){
+            await AddManager.createUser(req.user.id);
+        }
+    }
 
     try {
+        await tryAndCreateUser();
 
         if (req.session.backURL) {
-
             const url = req.session.backURL;
             req.session.backURL = null;
             res.redirect(url);
 
-            const member = await client.users.fetch(req.user.id);
+            const member = req.user;
             if (member) {
                 webhook.send({
                     embeds: [
                         {
                             color: "BLURPLE",
                             title: `👀 Login`,
-                            description: `ID: \`${member.id}\`\nTag: ${member.tag}\nMention: <@${member.id}>`
+                            description: `ID: \`${member.id}\`\nTag: ${genTag(member)}\nMention: <@${member.id}>`
                         }
                     ]
                 });
             }
 
         } else {
-
-            const member = await client.users.fetch(req.user.id);
+            const member = req.user;
             if (member) {
                 webhook.send({
                     embeds: [
                         {
                             color: "BLURPLE",
                             title: `👀 Login`,
-                            description: `ID: \`${member.id}\`\nTag: ${member.tag}\nMention: <@${member.id}>`
+                            description: `ID: \`${member.id}\`\nTag: ${genTag(member)}\nMention: <@${member.id}>`
                         }
                     ]
                 });
             }
 
-            res.redirect("/");
+            res.redirect("/dashboard");
         }
     } catch (err) {
-
+        console.log(`😱 Login Error:`, err);
         res.redirect('/')
     }
 
@@ -185,14 +199,15 @@ app.get("/callback", passport.authenticate("discord", {
 app.get("/logout", async function (req, res) {
 
     if (req.user) {
-        const member = await client.users.fetch(req.user.id);
+        const member = req.user;
+
         if (member) {
             webhook.send({
                 embeds: [
                     {
                         color: "BLURPLE",
                         title: `👋 Logout`,
-                        description: `ID: \`${member.id}\`\nTag: ${member.tag}\nMention: <@${member.id}>`
+                        description: `ID: \`${member.id}\`\nTag: ${genTag(member)}\nMention: <@${member.id}>`
                     }
                 ]
             });
@@ -211,13 +226,35 @@ app.get("/", async (req, res) => {
 });
 
 app.get("/dashboard", async (req, res) => {
-    if(!req.isAuthenticated()){
+    if (!req.isAuthenticated()) {
         return res.redirect("/login");
     }
 
-    await renderTemplate(res, req, "dashboard.ejs", {
-
+    //Fetch & auto edit
+    const ReqUser = await FetchManager.fetchUser(req.user.id);
+    await ReqUser.autoEdit();
+    const ReqApps = await FetchManager.fetchAllAppsWith({
+        ownerId: req.user.id
     });
+    ReqApps.forEach(async e => (await e.autoEdit()));
+
+    setTimeout(async () => {
+        await renderTemplate(res, req, "dashboard.ejs", {
+            User: ReqUser,
+            UserApps: ReqApps,
+            AppsNullish: (ReqApps == null || ReqApps.length <= 0)
+        });
+    }, 100);
+});
+
+app.get("/newApp", async (req, res) => {
+    const AppName = decodeURI(req.query.APP_NAME);
+
+    AddManager.createApp(req.user.id,
+        AppName
+    );
+
+    res.redirect("/dashboard");
 });
 
 app.listen(config.port, null, null, () => console.log(`Dashboard is up and running on port ${domain}`));

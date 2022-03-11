@@ -1,0 +1,15 @@
+.AppTile {
+    background-color: #333439;
+    border-radius: 10px;
+}
+
+.AppText {
+    color: white;
+}
+
+.AppName {
+    text-align: left;
+    margin-left: 20px;
+    font-size: 50px;
+    font-weight: bolder;
+}

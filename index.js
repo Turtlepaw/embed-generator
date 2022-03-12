@@ -100,6 +100,9 @@ const renderTemplate = async (res, req, template, data = {}) => {
         image: `${domain}/logo.png`,
         redirect: function (place) {
             res.redirect(place);
+        },
+        string: function(value) {
+            return `"${value}"`;
         }
     };
     res.render(path.resolve(`${templateDir}${path.sep}${template}`), Object.assign(baseData, data));

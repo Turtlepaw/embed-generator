@@ -155,11 +155,11 @@ a {
     border-color: white;
 }
 .btn {
-    border: 1px solid transparent;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    /* border: 1px solid transparent; */
+    /* padding-left: 0.5rem; */
+    /* padding-right: 0.5rem; */
+    /* padding-top: 1rem; */
+    /* padding-bottom: 1rem; */
 }
 .btn:hover {
     text-decoration: underline;

@@ -8,8 +8,19 @@
 }
 
 .AppName {
-    text-align: left;
-    margin-left: 20px;
+    /* text-align: left;
+    margin-left: 20px; */
     font-size: 50px;
     font-weight: bolder;
+}
+
+.AppButton {
+    margin-right: 20px;
+    font-size: 50px;
+    font-weight: bolder;
+    align-self: right;
+    border-radius: 20px;
+    background-color: #5865f2;
+    color: white;
+    width: 335px;
 }

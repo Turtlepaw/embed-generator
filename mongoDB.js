@@ -133,9 +133,11 @@ module.exports.App = class CookingApp {
         return this;
     }
 
-    regenerateToken(){
+    async regenerateToken(){
+        console.log(`Token Reset...`)
         this.edited.token = true
-        return this;
+        this.data.token = this.generateToken();
+        return (await this.save());
     }
 
     addRequest(){
@@ -158,7 +160,7 @@ module.exports.App = class CookingApp {
 
         if(edited.requests) d.requests = (d.requests == null ? data.requests : (d.requests + data.requests));
         if(edited.AppName) d.name = data.AppName;
-        if(edited.token) d.token = this.generateToken();
+        if(edited.token) d.token = data.token;
 
         return (await d.save());
     }

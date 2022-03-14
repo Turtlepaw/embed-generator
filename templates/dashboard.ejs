@@ -41,7 +41,7 @@
                         <br>
                         <div class="AppText AppName"><%=App.data.AppName%></div>
                         <br>
-                        <button class="AppButton btn-sm text-black font-bold transition duration-200 shadow hover:shadow-2xl ease-in-and-out rounded-lg mx-auto font-sans w-60" onclick="<%console.log("Button Click")%>alert(<%=string("✅ Reset Token!")%>)" >Reset Token</button>
+                        <form action="/actions/regen?Id=<%=App.Id%>" method="post"><button class="AppButton btn-sm text-black font-bold transition duration-200 shadow hover:shadow-2xl ease-in-and-out rounded-lg mx-auto font-sans w-60" onclick="alert(<%=string("✅ Reset Token!")%>)" >Reset Token</button></form>
                         <button class="AppButton btn-sm text-black font-bold transition duration-200 shadow hover:shadow-2xl ease-in-and-out rounded-lg mx-auto font-sans w-60" onclick="navigator.clipboard.writeText(<%=string(App.data.token)%>).then(e => alert(<%=string("📋 Copied to Clipboard!")%>));">Copy Token</button>
                         <br><br>
                     </div>

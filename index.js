@@ -24,7 +24,9 @@ const app = express();
 const AddManager = new CookingCreatorManager();
 const FetchManager = new CookingFetchManaging();
 const port = 5089;
+const port2 = 5090;
 const domain = "http://localhost:" + port;
+const domain2 = "http://localhost:" + port2;
 const http = "http://";
 const config = {
     "verification": "",
@@ -260,6 +262,23 @@ app.get("/newApp", async (req, res) => {
     res.redirect("/dashboard");
 });
 
+app.post("/actions/regen", async (req, res) => {
+    const App = await FetchManager.fetchApp(req.query.Id);
+
+    await App.autoEdit();
+    await App.regenerateToken().then(v => {
+        res.redirect("/dashboard");
+    });
+});
+
+app.get("/support", (req, res) => {
+    res.redirect(`https://discord.gg/dMpD7N2EEk`);
+});
+
+app.get("/invite", (req, res) => {
+    res.send(`Coming Soon...`)
+});
+
 app.listen(config.port, null, null, () => console.log(`Dashboard is up and running on port ${domain}`));
 
 
@@ -268,3 +287,5 @@ app.listen(config.port, null, null, () => console.log(`Dashboard is up and runni
 // A P I =>
 
 const API = express();
+
+API.listen(port2, null, null, () => console.log(`API is up and running on port ${domain2}`));
